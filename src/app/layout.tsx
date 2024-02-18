@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Merienda } from "next/font/google";
+import { Inter, Merienda, Roboto } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "./GlobalRedux/reduxProvider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { QueryProvider } from "@/utils/queryClientProvider";
 
-const Merienda_init = Merienda({
+const merienda = Merienda({
     subsets: ["latin"],
     weight: ["500", "600", "700", "800"],
     variable: "--font-merienda",
+});
+
+const roboto = Roboto({
+    subsets: ["latin"],
+    weight: ["400", "500", "700", "900"],
+    variable: "--font-roboto",
 });
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,8 +29,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`${inter.className} ${Merienda_init.variable}`}>
-                <ReduxProvider>{children}</ReduxProvider>
+            <body
+                className={`${inter.className} ${merienda.variable} ${roboto.variable}`}
+            >
+                <ReduxProvider>
+                    <ThemeProvider attribute="class" defaultTheme="system">
+                        <QueryProvider>{children}</QueryProvider>
+                    </ThemeProvider>
+                </ReduxProvider>
             </body>
         </html>
     );

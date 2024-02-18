@@ -188,9 +188,12 @@ export const register = createSlice({
                 registrationProgress: [100, 100, 100, 100, 100],
             };
         },
+        updateRP(state, action: PayloadAction<{progress: number[]}>){
+            state = {...state, registrationProgress: action.payload.progress}
+        }
     },
 });
 
-export const { updateAccountType, updateCredentials, updateBasicData } =
+export const { updateAccountType, updateCredentials, updateBasicData, updateRP } =
     register.actions;
 export default register.reducer;
