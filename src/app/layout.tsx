@@ -5,31 +5,34 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { AdminProvider } from "@/lib/admin-context";
-
+import AuthProvider from "@/lib/authProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Raigon High School",
-  description: "Welcome to Raigon High School - Nurturing minds, building futures",
+    title: "Raigon High School",
+    description:
+        "Welcome to Raigon High School - Nurturing minds, building futures",
 };
 
 export default function RootLayout({
-  children,
+    children,
+    session,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
+    session: any;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AdminProvider>
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-          <Toaster />
-        </AdminProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <AuthProvider session={session}>
+                    <AdminProvider>
+                        <Navbar />
+                        <main className="min-h-screen">{children}</main>
+                        <Footer />
+                        <Toaster />
+                    </AdminProvider>
+                </AuthProvider>
+            </body>
+        </html>
+    );
 }

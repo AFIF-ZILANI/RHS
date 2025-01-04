@@ -26,8 +26,8 @@ export default function BlogPage() {
       </PageHeader>
 
       <div className="grid gap-8">
-        {blogs.map((blog) => (
-          <BlogCard key={blog._id} blog={blog} />
+        {blogs.map((blog, index) => (
+          <BlogCard key={index} blog={blog} />
         ))}
       </div>
     </div>
